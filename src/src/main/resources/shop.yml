@@ -1,0 +1,120 @@
+# =======================================================
+#    Configuração dos Itens da Loja de Pesca
+# =======================================================
+#
+# Cada item é definido por uma chave única (ex: 'isca_magica').
+# Você pode adicionar até 21 itens.
+#
+# Parâmetros para cada item:
+#   slot: A posição no inventário (de 0 a 53). Recomendo usar os slots de 10 a 34.
+#   material: O tipo de item do Minecraft. Lista: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+#   display-name: O nome do item. Use '&' para códigos de cor.
+#   lore: A descrição do item (linhas de texto). Use '&' para cores.
+#   price: O custo do item em "Peixes".
+#   custom-model-data: (Opcional) Para usar texturas customizadas.
+#   command: Comando executado ao comprar o item.
+#
+# Placeholder disponível na lore: %price% - será substituído pelo preço do item.
+
+shop-items:
+  abobora_plantavel:
+    slot: 11
+    material: "PUMPKIN_SEEDS"
+    display-name: "&aAbóbora Plantavel"
+    lore:
+      - "&7Quantidade: x1"
+      - " "
+      - "&fPlante essa semente em seu terreno"
+      - ""
+      - " &fCusto: &b%price% Peixes"
+    price: 30000
+    command: "give %player% minecraft:pumpkin_seeds[custom_name={\"color\":\"green\", \"text\":\"Abóbora Plantavel\"}] %quantity%"
+
+  bateria_tesoura:
+    slot: 12
+    material: "GLOWSTONE"
+    display-name: "&aBateria de Tesoura"
+    lore:
+      - "&7Quantidade: 50"
+      - " "
+      - "&fUse essa bateria em sua tesoura"
+      - ""
+      - " &fCusto: &b%price% Peixes"
+    price: 30000
+    command: "give %player% minecraft:glowstone %quantity%"
+
+  booster_1:
+    slot: 13
+    material: "EXPERIENCE_BOTTLE"
+    display-name: "&aBooster de Skills (20m)"
+    lore:
+      - "&7Quantidade: x1"
+      - " "
+      - "&fEsse booster multiplica por 1.3x"
+      - '&fsuas exp por skill'
+      - ""
+      - " &fCusto: &b%price% Peixes"
+    price: 25000
+    command: "give %player% minecraft:experience_bottle[custom_name={\"color\":\"green\", \"text\":\"Booster de Skills 1.3x (20m)\"}] %quantity%"
+
+  booster_2:
+    slot: 14
+    material: "EXPERIENCE_BOTTLE"
+    display-name: "&aBooster de Skills (20m)"
+    lore:
+      - "&7Quantidade: x1"
+      - " "
+      - "&fEsse booster multiplica por 1.5x"
+      - '&fsuas exp por skill'
+      - ""
+      - " &fCusto: &b%price% Peixes"
+    price: 50000
+    command: "give %player% minecraft:experience_bottle[custom_name={\"color\":\"green\", \"text\":\"Booster de Skills 1.5x (20m)\"}] %quantity%"
+
+  booster_3:
+    slot: 15
+    material: "EXPERIENCE_BOTTLE"
+    display-name: "&aBooster de Vendas (1.15x) 15 minutos"
+    lore:
+      - "&7Quantidade: x1"
+      - " "
+      - " &fCusto: &b%price% Peixes"
+    price: 80000
+    command: "give %player% minecraft:experience_bottle[custom_name={\"color\":\"green\", \"text\":\"Booster de Vendas 1.15x (15m)\"}] %quantity%"
+
+  caixa:
+    slot: 20
+    material: "CHEST"
+    display-name: "&aCaixa Origins v2"
+    lore:
+      - "&7Quantidade: x1"
+      - " "
+      - " &fCusto: &b%price% Peixes"
+    price: 100000
+    command: "give %player% minecraft:chest %quantity%"
+
+  removedor_skin:
+    slot: 21
+    material: "NAME_TAG"
+    display-name: "&aRemovedor de Skin"
+    lore:
+      - "&7Quantidade: x1"
+      - " "
+      - "&fRemova suas skins com esse item"
+      - ""
+      - " &fCusto: &b%price% Peixes"
+    price: 150000
+    command: "give %player% minecraft:name_tag %quantity%"
+
+  tesoura:
+    slot: 22
+    material: "SHEARS"
+    display-name: "&aTesoura capacidade 50"
+    lore:
+      - "&7Quantidade: 1"
+      - " "
+      - "&fUse essa tesoura na floresta"
+      - ""
+      - " &fCusto: &b%price% Peixes"
+    price: 250000
+    command: "give %player% minecraft:shears %quantity%"

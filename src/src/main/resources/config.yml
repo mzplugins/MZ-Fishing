@@ -1,0 +1,3 @@
+mongodb:
+  connection-string: "sua-connection-string"
+  database: "MZ-Fishing"

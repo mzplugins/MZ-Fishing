@@ -1,0 +1,40 @@
+# ===============================================
+#    Configuração de Mensagens - MZ-Fishing
+# ===============================================
+#
+# Placeholders disponíveis (variáveis que você pode usar nas mensagens):
+# %player% - Nome do jogador
+# %quantity% - Quantidade de itens/peixes
+# %item_name% - Nome do item
+# %price% - Preço total
+# %balance% - Saldo do jogador
+# %input% - Texto digitado pelo jogador no chat
+
+# Prefixo que pode ser usado antes de algumas mensagens (opcional).
+prefix: ""
+
+general:
+  no-permission: "&cVocê não tem permissão para usar este comando."
+  location-not-set: "&cA localização '%location_type%' ainda não foi definida por um admin!"
+
+commands:
+  set-location-success: "&aLocalização '%location_type%' definida com sucesso!"
+  remove-all-success: "&aOperação de limpeza concluída!"
+  remove-all-entities: "&aAs lojas (NPCs/Hologramas) foram removidas do mundo."
+
+shop:
+  purchase-success: "&aVocê comprou &f%quantity% %item_name%&a por &f%price%&a peixes com sucesso!"
+  insufficient-funds: "&cVocê precisa de &l%price% peixes &cpara comprar esse item!"
+  custom-purchase-prompt: "&eDigite a quantidade de %item_name%&e que deseja comprar."
+  custom-purchase-cancel-prompt: "&eDigite &7'cancelar' &epara cancelar a compra."
+  purchase-cancelled: "&cCompra cancelada com sucesso."
+  invalid-number: "&cA quantidade inserida é invalida."
+  positive-number-required: "&cA quantidade inserida é invalida."
+  item-no-command: "&cEste item não tem um comando de entrega configurado! Contate um admin."
+
+action-bar:
+  fishing: "Pesca em andamento..."
+  catch-reward: "&b&l+ %quantity% Peixes!"
+  multiple-catch: "&6&lFISGADA MÚLTIPLA!"
+  multiple-catch-reward: "&e+ %quantity% Peixes (Bônus)!"
+  stop-fishing: "&c&lX &cVocê parou de pescar."

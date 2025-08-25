@@ -1,0 +1,12 @@
+# Intervalo entre as recompensas de pesca (em segundos).
+catch-interval-seconds: 20
+
+# Quantidade de peixes ganhos por fisgada normal.
+fishes-per-catch: 100
+
+# Chance de ter uma "fisgada múltipla" (0.0 a 100.0).
+# Uma fisgada múltipla dá várias recompensas instantaneamente, sem cooldown.
+multiple-catch-chance: 5
+
+# Quantidade de recompensas bônus em uma fisgada múltipla.
+multiple-catch-amount: 3

@@ -1,0 +1,25 @@
+name: MZ-Fishing
+version: 1.0.0
+main: br.com.mz.Main
+api-version: '1.20'
+description: Plugin identical to the fishing plugin of the nerdzone server.
+author: MZ Plugins
+commands:
+  pesca:
+    description: Principal command for MZ-Fishing
+    aliases: [fish]
+    permission: mz-fishing.fish
+    permission-message: Você não tem permissão para usar este comando.
+permissions:
+  mz-fishing.*:
+    description: Allow access to fish automatically and manage adm configurations.
+    default: op
+    children:
+      mz-fishing.fish: true
+      mz-fishing.admin: true
+  mz-fishing.fish:
+    description: Allow access to fish automatically.
+    default: false
+  mz-fishing.admin:
+    description: Allow access to admin commands.
+    default: false
