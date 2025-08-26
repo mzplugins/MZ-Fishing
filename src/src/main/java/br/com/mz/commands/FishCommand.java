@@ -10,9 +10,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
+import java.util.Collections;
 import java.util.Optional;
 
 public class FishCommand implements CommandExecutor {
@@ -31,13 +30,16 @@ public class FishCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player player)) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Este comando só pode ser usado por jogadores.");
             return true;
         }
 
-        if(args.length == 0){
+        Player player = (Player) sender;
+
+        if(args.length == 0) {
             fishCommand(player);
             return true;
         }
@@ -94,7 +96,7 @@ public class FishCommand implements CommandExecutor {
         }
 
         Optional<Location> leaveLocationOpt = _locationRepository.loadLocation("leave");
-        if (leaveLocationOpt.isEmpty()) {
+        if (!leaveLocationOpt.isPresent()) {
             return;
         }
 
@@ -111,7 +113,7 @@ public class FishCommand implements CommandExecutor {
 
         Optional<Location> spawnLocationOpt = _locationRepository.loadLocation("spawn");
 
-        if (spawnLocationOpt.isEmpty()) {
+        if (!spawnLocationOpt.isPresent()) {
             _messagesManager.sendMessage(player, "general.location-not-set");
             return;
         }
@@ -127,16 +129,16 @@ public class FishCommand implements CommandExecutor {
         switch (locationType) {
             case "spawn":
                 _locationRepository.saveLocation("spawn", playerLocation);
-                _messagesManager.sendMessage(player, "commands.set-location-success", Map.of("%location_type%", "spawn"));
+                _messagesManager.sendMessage(player, "commands.set-location-success", Collections.singletonMap("%location_type%", "spawn"));
                 break;
             case "leave":
                 _locationRepository.saveLocation("leave", playerLocation);
-                _messagesManager.sendMessage(player, "commands.set-location-success", Map.of("%location_type%", "leave"));
+                _messagesManager.sendMessage(player, "commands.set-location-success", Collections.singletonMap("%location_type%", "leave"));
                 break;
             case "shop":
                 _locationRepository.saveLocation("shop", playerLocation);
                 _shopManager.spawnOrUpdateVillager(playerLocation);
-                _messagesManager.sendMessage(player, "commands.set-location-success", Map.of("%location_type%", "shop"));
+                _messagesManager.sendMessage(player, "commands.set-location-success", Collections.singletonMap("%location_type%", "shop"));
                 break;
             default:
                 player.sendMessage("§cSet invalido. Use: spawn, leave ou shop.");

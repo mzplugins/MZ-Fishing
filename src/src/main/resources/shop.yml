@@ -45,7 +45,7 @@ shop-items:
 
   booster_1:
     slot: 13
-    material: "EXPERIENCE_BOTTLE"
+    material: "EXP_BOTTLE"
     display-name: "&aBooster de Skills (20m)"
     lore:
       - "&7Quantidade: x1"
@@ -55,11 +55,11 @@ shop-items:
       - ""
       - " &fCusto: &b%price% Peixes"
     price: 25000
-    command: "give %player% minecraft:experience_bottle[custom_name={\"color\":\"green\", \"text\":\"Booster de Skills 1.3x (20m)\"}] %quantity%"
+    command: "give %player% minecraft:exp_bottle[custom_name={\"color\":\"green\", \"text\":\"Booster de Skills 1.3x (20m)\"}] %quantity%"
 
   booster_2:
     slot: 14
-    material: "EXPERIENCE_BOTTLE"
+    material: "EXP_BOTTLE"
     display-name: "&aBooster de Skills (20m)"
     lore:
       - "&7Quantidade: x1"
@@ -69,18 +69,18 @@ shop-items:
       - ""
       - " &fCusto: &b%price% Peixes"
     price: 50000
-    command: "give %player% minecraft:experience_bottle[custom_name={\"color\":\"green\", \"text\":\"Booster de Skills 1.5x (20m)\"}] %quantity%"
+    command: "give %player% minecraft:exp_bottle[custom_name={\"color\":\"green\", \"text\":\"Booster de Skills 1.5x (20m)\"}] %quantity%"
 
   booster_3:
     slot: 15
-    material: "EXPERIENCE_BOTTLE"
+    material: "EXP_BOTTLE"
     display-name: "&aBooster de Vendas (1.15x) 15 minutos"
     lore:
       - "&7Quantidade: x1"
       - " "
       - " &fCusto: &b%price% Peixes"
     price: 80000
-    command: "give %player% minecraft:experience_bottle[custom_name={\"color\":\"green\", \"text\":\"Booster de Vendas 1.15x (15m)\"}] %quantity%"
+    command: "give %player% minecraft:exp_bottle[custom_name={\"color\":\"green\", \"text\":\"Booster de Vendas 1.15x (15m)\"}] %quantity%"
 
   caixa:
     slot: 20

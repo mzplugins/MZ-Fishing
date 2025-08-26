@@ -1,7 +1,6 @@
 name: MZ-Fishing
 version: 1.0.0
 main: br.com.mz.Main
-api-version: '1.20'
 description: Plugin identical to the fishing plugin of the nerdzone server.
 author: MZ Plugins
 commands:

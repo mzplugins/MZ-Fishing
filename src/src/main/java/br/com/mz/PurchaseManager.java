@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -27,7 +29,7 @@ public class PurchaseManager {
         pendingPurchases.put(player.getUniqueId(), item);
         player.closeInventory();
 
-        messagesManager.sendMessage(player, "shop.custom-purchase-prompt", Map.of("%item_name%", item.getDisplayName()));
+        messagesManager.sendMessage(player, "shop.custom-purchase-prompt", Collections.singletonMap("%item_name%", item.getDisplayName()));
         messagesManager.sendMessage(player, "shop.custom-purchase-cancel-prompt");
     }
 

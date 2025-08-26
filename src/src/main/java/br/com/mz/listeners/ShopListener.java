@@ -9,9 +9,6 @@ import br.com.mz.database.PlayerProfileRepository;
 import br.com.mz.guis.ShopMenu;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.papermc.paper.event.player.AsyncChatEvent;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -19,8 +16,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @Singleton
@@ -56,7 +56,7 @@ public class ShopListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
 
-        if (!event.getView().title().equals(ShopMenu.TITLE)) {
+        if (!event.getView().getTitle().equals(ShopMenu.TITLE)) {
             return;
         }
 
@@ -76,14 +76,13 @@ public class ShopListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerChat(AsyncChatEvent event) {
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
 
         if (_purchaseManager.isWaitingForInput(player)) {
             event.setCancelled(true);
 
-            Component messageComponent = event.message();
-            String plainMessage = PlainTextComponentSerializer.plainText().serialize(messageComponent);
+            String plainMessage = event.getMessage();
 
             if (plainMessage.equalsIgnoreCase("cancelar")) {
                 _purchaseManager.cancelPurchase(player);
@@ -105,7 +104,7 @@ public class ShopListener implements Listener {
                 });
 
             } catch (NumberFormatException e) {
-                _messagesManager.sendMessage(player, "shop.invalid-number", Map.of("%input%", plainMessage));
+                _messagesManager.sendMessage(player, "shop.invalid-number", Collections.singletonMap("%input%", plainMessage));
             }
         }
     }
@@ -127,21 +126,21 @@ public class ShopListener implements Listener {
             _profileRepository.addToBalance(player.getUniqueId(), -totalPrice);
             _purchaseManager.executePurchaseCommand(player, item, quantity);
 
-            _messagesManager.sendMessage(player, "shop.purchase-success", Map.of(
-                    "%quantity%", String.valueOf(quantity),
-                    "%item_name%", item.getDisplayName(),
-                    "%price%", String.valueOf(totalPrice)
-            ));
+            Map<String, String> placeholders = new HashMap<>();
+            placeholders.put("%quantity%", String.valueOf(quantity));
+            placeholders.put("%item_name%", item.getDisplayName());
+            placeholders.put("%price%", String.valueOf(totalPrice));
+            _messagesManager.sendMessage(player, "shop.purchase-success", placeholders);
 
             if(_purchaseManager.isWaitingForInput(player)) {
                 _purchaseManager.clearPendingPurchase(player);
             }
 
-        } else {
-            _messagesManager.sendMessage(player, "shop.insufficient-funds", Map.of(
-                    "%price%", String.valueOf(totalPrice),
-                    "%balance%", String.valueOf(playerBalance)
-            ));
+        }else {
+            Map<String, String> placeholders = new HashMap<>();
+            placeholders.put("%price%", String.valueOf(totalPrice));
+            placeholders.put("%balance%", String.valueOf(playerBalance));
+            _messagesManager.sendMessage(player, "shop.insufficient-funds", placeholders);
         }
     }
 }

@@ -5,9 +5,8 @@ import br.com.mz.configs.ShopConfig;
 import br.com.mz.database.PlayerProfileRepository;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 @Singleton
 public class ShopMenu {
 
-    public static final Component TITLE = Component.text("Mercado da Pesca");
+    public static final String TITLE = ChatColor.translateAlternateColorCodes('&', "&bMercado da Pesca");
 
     private final ShopConfig _shopConfig;
     private final PlayerProfileRepository _playerProfileRepository;
@@ -43,7 +42,8 @@ public class ShopMenu {
 
         double fishQuantity = _playerProfileRepository.getProfile(player.getUniqueId()).getFishBalance();
         String formattedFishQuantity = String.format("%.2fK", fishQuantity / 1000.0);
-        ItemStack fishQuantityItem = createMenuItem(Material.TROPICAL_FISH, "§bSaldo", Collections.singletonList("§7Você possui §b" + formattedFishQuantity + " Peixes."));
+        ItemStack fishQuantityItem = createMenuItem(Material.RAW_FISH, "§bSaldo", Collections.singletonList("§7Você possui §b" + formattedFishQuantity + " Peixes."));
+        fishQuantityItem.setDurability((short) 2);
         inv.setItem(48, fishQuantityItem);
 
         ItemStack optionsItem = createMenuItem(Material.PAPER, "§bOpções", Arrays.asList("§fBotão esquerdo §7para comprar 1 item", "§fBotão direito §7para selecionar a quantidade"));
@@ -57,20 +57,16 @@ public class ShopMenu {
         ItemMeta meta = item.getItemMeta();
 
         if (meta != null) {
-            Component componentName = LegacyComponentSerializer.legacySection().deserialize(name);
-            meta.displayName(componentName);
+            meta.setDisplayName(name);
 
             if (lore != null && !lore.isEmpty()) {
-                List<Component> componentLore = lore.stream()
-                        .map(line -> LegacyComponentSerializer.legacySection().deserialize(line))
+                List<String> coloredLore = lore.stream()
+                        .map(line -> ChatColor.translateAlternateColorCodes('&', line))
                         .collect(Collectors.toList());
-
-                meta.lore(componentLore);
+                meta.setLore(coloredLore);
             }
-
             item.setItemMeta(meta);
         }
-
         return item;
     }
 }

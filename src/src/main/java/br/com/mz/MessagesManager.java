@@ -2,13 +2,12 @@ package br.com.mz;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import java.io.File;
+import java.util.Collections;
 import java.util.Map;
 
 @Singleton
@@ -44,7 +43,7 @@ public class MessagesManager {
     }
 
     public String getMessage(String key) {
-        return getMessage(key, Map.of());
+        return getMessage(key, Collections.emptyMap());
     }
 
     public void sendMessage(Player player, String key, Map<String, String> placeholders) {
@@ -53,15 +52,6 @@ public class MessagesManager {
     }
 
     public void sendMessage(Player player, String key) {
-        sendMessage(player, key, Map.of());
-    }
-
-    public Component getActionBarComponent(String key, Map<String, String> placeholders) {
-        String message = getMessage(key, placeholders);
-        return LegacyComponentSerializer.legacyAmpersand().deserialize(message);
-    }
-
-    public Component getActionBarComponent(String key) {
-        return getActionBarComponent(key, Map.of());
+        sendMessage(player, key, Collections.emptyMap());
     }
 }

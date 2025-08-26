@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     id("java")
     id("com.github.johnrengelman.shadow") version "8.1.1"
@@ -8,23 +10,38 @@ version = "1.0.0"
 
 repositories {
     mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/public/")
+    flatDir {
+        dirs("libs")
+    }
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
     implementation("com.google.inject:guice:7.0.0")
     implementation("org.mongodb:mongodb-driver-sync:4.11.1")
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 tasks.processResources {
     filesMatching("plugin.yml") {
         expand(project.properties)
     }
+}
+
+tasks.withType<ShadowJar> {
+    archiveBaseName.set(rootProject.name)
+    archiveClassifier.set("")
+
+    relocate("com.google.inject", "br.com.mz.libs.guice")
+    relocate("com.google.common", "br.com.mz.libs.guava")
+    relocate("org.aopalliance", "br.com.mz.libs.aopalliance")
+    relocate("jakarta.inject", "br.com.mz.libs.jakartainject")
 }
 
 tasks.build {

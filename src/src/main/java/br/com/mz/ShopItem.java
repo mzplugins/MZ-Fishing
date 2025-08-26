@@ -1,12 +1,10 @@
 package br.com.mz;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,22 +35,17 @@ public class ShopItem {
         ItemMeta meta = item.getItemMeta();
 
         if (meta != null) {
-            Component componentName = LegacyComponentSerializer.legacySection().deserialize(this.displayName.replace('&', '§'));
-            meta.displayName(componentName);
+            meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', this.displayName));
 
-            List<Component> componentLore = lore.stream()
-                    .map(line -> line.replace('&', '§'))
-                    .map(line -> {
-                        String formattedValue = String.format("%.0fK", this.price / 1000.0);
-                        return line.replace("%price%", formattedValue);
-                    })
-                    .map(line -> LegacyComponentSerializer.legacySection().deserialize(line))
+            List<String> componentLore = lore.stream()
+                    .map(line -> line.replace("%price%", String.format("%.0fK", this.price / 1000.0)))
+                    .map(line -> ChatColor.translateAlternateColorCodes('&', line))
                     .collect(Collectors.toList());
-
-            meta.lore(componentLore);
+            meta.setLore(componentLore);
 
             if (this.customModelData > 0) {
-                meta.setCustomModelData(this.customModelData);
+                item.setDurability((short) this.customModelData);
+                meta.spigot().setUnbreakable(true);
             }
 
             item.setItemMeta(meta);

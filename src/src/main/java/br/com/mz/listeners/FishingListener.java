@@ -34,7 +34,7 @@ public class FishingListener implements Listener {
             return;
         }
 
-        if (player.getInventory().getItemInMainHand().getType() == Material.FISHING_ROD && _fishingManager.isInFishingMode(player)) {
+        if (player.getInventory().getItemInHand().getType() == Material.FISHING_ROD && _fishingManager.isInFishingMode(player)) {
             event.setCancelled(true);
 
             if (_fishingManager.isActivelyFishing(player)) {
